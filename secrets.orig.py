@@ -1,4 +1,6 @@
 import os
+#Copy this file to secrets.py and edit it's values
+#> cp secrets.orig.py secrets.py
 #(git rm --cached secrets.py)
 
 ## setings for inquiring articles from newsapi.org
