@@ -1,4 +1,5 @@
 import os
+#(git rm --cached secrets.py)
 
 ## setings for inquiring articles from newsapi.org
 #  Get API Key: https://newsapi.org/register &  https://newsapi.org/account
