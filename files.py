@@ -29,6 +29,6 @@ def getNewsDF(state='singular'):
     newsDF = getNewsDFbyList(files)
     return newsDF            
 
-#print(getNewsDF(state='harvest'))
+#print(getNewsDF(state='singular'))
 #print(getNewsFiles(state='harvest'))
 
