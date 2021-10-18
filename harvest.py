@@ -9,7 +9,6 @@ import os.path
 import requests
 from urllib.parse import urlparse
 import json
-#import smtplib
 import random
 
 import time
@@ -39,10 +38,10 @@ collectedNews = {}
 def addNewsToCollection(data):
     global collectedNews
     pubDate = parser.parse(data['published'])
-    fileDate = 'news_'+pubDate.strftime('%Y_%m')+'.csv'
+    fileDate = 'news_harvest_'+pubDate.strftime('%Y_%m')+'.csv'
     if(not fileDate in collectedNews):
         if(os.path.isfile(DATA_PATH / 'csv' / fileDate)):
-            df = pd.read_csv(DATA_PATH / fileDate, delimiter=',',index_col='index')
+            df = pd.read_csv(DATA_PATH / 'csv' / fileDate, delimiter=',',index_col='index')
             collectedNews[fileDate] = df.to_dict('index')
         else:
             collectedNews[fileDate] = {}
