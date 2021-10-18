@@ -7,19 +7,8 @@ import os.path
 import requests
 from urllib.parse import urlparse
 import json
-import time
-import smtplib
-import random
-
-import datetime
-from dateutil import parser
-
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
 from bs4 import BeautifulSoup
-
-
 
 
 def extractZeit(htmlText):
@@ -292,7 +281,7 @@ for newsFileHarvest in newsFiles:
     di1 = df1.to_dict('index')
 
     for index in di1:
-        print(di1[index]['url'])
+        #print(di1[index]['url'])
         if(not di1[index]['quote']):
             if(di1[index]['domain'] in domains):
                 quoteOrig = None

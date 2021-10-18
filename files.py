@@ -30,5 +30,5 @@ def getNewsDF(state='singular'):
     return newsDF            
 
 #print(getNewsDF(state='harvest'))
-print(getNewsFiles(state='harvest'))
+#print(getNewsFiles(state='harvest'))
 
