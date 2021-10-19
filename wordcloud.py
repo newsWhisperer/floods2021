@@ -20,7 +20,7 @@ floodsDF = floodsDF[floodsDF['valid']==1]
 floodsDF = floodsDF[floodsDF['language']=='de']
 
 locationsDF = pd.read_csv(DATA_PATH / 'csv' / 'geonames.csv', delimiter=',',index_col='phrase')
-##locationsDF = locationsDF[locationsDF['count']>8]
+## locationsDF = locationsDF[locationsDF['count']>8]
 locationsDF = locationsDF[((locationsDF['country']=='Deutschland') | (locationsDF['geotype']=='A'))]
 locationsDF = locationsDF[locationsDF['geonames'].notnull()]
 locationsDF = locationsDF[locationsDF['geotype']!='S']
@@ -140,8 +140,6 @@ floodEdgesDF = pd.DataFrame.from_dict(floodEdges, orient='index', columns=['prev
 ## floodEdgesDF = floodEdgesDF[floodEdgesDF['counter']>12]
 
 floodEdgesDF = floodEdgesDF.sort_values('counter', ascending=False)
-#floodEdgesDF = floodEdgesDF[floodEdgesDF['prev'].isin(remainingNodes)]
-#floodEdgesDF = floodEdgesDF[floodEdgesDF['curr'].isin(remainingNodes)]
 
 prevNodes = floodEdgesDF['prev'].tolist()
 currNodes = floodEdgesDF['curr'].tolist()
@@ -151,7 +149,6 @@ floodNodesDF = floodNodesDF[floodNodesDF['lemma'].isin(connectedNodes)]
 nodeMin = np.min(floodNodesDF['counter'])
 nodeMax = np.max(floodNodesDF['counter'])
 
-#G = nx.MultiDiGraph()
 G = nx.Graph()
 nodeSizes = []
 fontSizes = {}
@@ -204,7 +201,7 @@ for node, (x, y) in pos.items():
       plt.text(x, y, floodNodes[node]['orig'], fontsize=fontSizes[node], ha='center', va='center', color=textColor, alpha=0.9)
 ax.margins(0.1, 0.05)
 fig.tight_layout()
-#plt.axis("off")
+plt.axis("off")
 if(not os.path.exists(DATA_PATH / 'img')):
     os.mkdir(DATA_PATH / 'img')
 plt.savefig(DATA_PATH / 'img' / 'wordcloud.png', dpi=300)
