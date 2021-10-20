@@ -1,0 +1,16 @@
+beautifulsoup4 
+Cartopy==0.19.0.post1
+de-core-news-sm 
+en-core-web-sm 
+fr-core-news-sm 
+geocoder==1.38.1
+HanTa==0.2.0
+networkx 
+nltk 
+pandas==1.2.1
+pathlib==1.0.1
+requests 
+srsly==1.0.5
+
+
+
