@@ -10,7 +10,9 @@ nltk
 pandas==1.2.1
 pathlib==1.0.1
 requests 
+spacy==2.2.4
 srsly==1.0.5
+urllib3
 
 
 
