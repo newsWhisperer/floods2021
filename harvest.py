@@ -1,4 +1,5 @@
 import secrets
+import dates
 import os
 
 import pandas as pd
@@ -62,19 +63,8 @@ def storeCollection():
     collectedNews = {}
 
 def archiveUrl(data):
-    timetravelDate = '19700101'
-    pubDate = None
-    try:
-        pubDate = parser.parse(data['published'])
-    except:
-        print('date parse error 1')
-    if(not pubDate):
-      try:
-        pubDate = parser.isoparse(data['published'])
-      except:
-        print('date parse error 2')   
-    if(pubDate):
-        timetravelDate = pubDate.strftime('%Y%m%d')
+    timetravelDate = dates.getDay(data['published'])
+    timetravelDate = timetravelDate.replace('-','')
     timetravelUrl = 'http://timetravel.mementoweb.org/api/json/'+timetravelDate+'/'+data['url']
     try:
         page = requests.get(timetravelUrl, timeout=10)

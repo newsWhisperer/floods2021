@@ -8,25 +8,7 @@ import en_core_web_sm
 import de_core_news_sm
 import fr_core_news_sm
 
-import requests
-from urllib.parse import urlparse
-import json
-import time
-import smtplib
-import random
-
-import time
-import datetime
-from dateutil import parser
-
-import nltk
-from HanTa import HanoverTagger as ht
-
 DATA_PATH = Path.cwd()
-
-language = 'ger'
-nltk.download('punkt')
-tagger = ht.HanoverTagger('morphmodel_'+language+'.pgz')
 
 nlpEn = en_core_web_sm.load()
 nlpDe = de_core_news_sm.load()
@@ -35,7 +17,7 @@ nlpFr = fr_core_news_sm.load()
 floodsDF = files.getNewsDF(state='singular')
 floodsDF = floodsDF[floodsDF['valid']==1]
 floodsDF = floodsDF[floodsDF['language']=='de']
-print(floodsDF)
+#print(floodsDF)
 if(floodsDF.empty):
     print("Make sure, some valid flags are set to '1' in ./csv/news_harvest_????_??.csv")
 
@@ -84,6 +66,8 @@ for index, column in floodsDF.iterrows():
                 else:
                     indexMissing[entity.text] = {'phrase':entity.text, 'label':entity.label_, 'language':lang, 'count':1}  
 
+if(not os.path.exists(DATA_PATH / 'csv')):
+    os.mkdir(DATA_PATH / 'csv')
 indexLocationsDF = pd.DataFrame.from_dict(indexLocations, orient='index', columns=['phrase', 'label', 'language', 'count'])
 indexLocationsDF.to_csv(DATA_PATH / 'csv' / 'entities_locations.csv', index=True)    
 indexPersonsDF = pd.DataFrame.from_dict(indexPersons, orient='index', columns=['phrase', 'label', 'language', 'count'])

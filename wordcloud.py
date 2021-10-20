@@ -18,6 +18,9 @@ DATA_PATH = Path.cwd()
 floodsDF = files.getNewsDF(state='singular')
 floodsDF = floodsDF[floodsDF['valid']==1]
 floodsDF = floodsDF[floodsDF['language']=='de']
+if(floodsDF.empty):
+    print("Make sure, some valid flags are set to '1' in ./csv/news_harvest_????_??.csv")
+
 
 locationsDF = pd.read_csv(DATA_PATH / 'csv' / 'geonames.csv', delimiter=',',index_col='phrase')
 ## locationsDF = locationsDF[locationsDF['count']>8]
