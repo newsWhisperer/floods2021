@@ -15,46 +15,46 @@ def extractZeit(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h1'],class_=['article-heading']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['div'],class_=['summary']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for paragraph in soup.article.find_all(['p', 'h2'],class_=['article__item']):
-         content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+         content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content   
 
 def extractSued(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.header.find_all(['h2']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for body in soup.article.find_all('div', itemprop='articleBody'):
         for paragraph in body.find_all('p'):
-             content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+             content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractStern(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.main.article.find_all(['div'],class_=['title']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.main.article.find_all(['div'],class_=['intro']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for paragraph in soup.main.article.find_all(['p', 'h2'],class_=['text-element', 'subheadline-element']):
          newCont = paragraph.get_text().replace("\n",' ').replace('  ',' ').strip()
          if(not newCont in content):
-            content += newCont+'\t\n'  
+            content += newCont+' \t\n'  
     return content             
 
 def extractFocus(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['div'],class_=['articleIdentH1']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['div'],class_=['leadIn']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['textBlock']):
         for paragraph in body.find_all(['p', 'h2']):
-             content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+             content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content   
 
 def extractNtv(htmlText):
@@ -62,22 +62,22 @@ def extractNtv(htmlText):
     content = ''
     for article in soup.find_all(['div'], class_=['content']):
         for header in article.find_all(['div'],class_=['article__header']):
-            content += header.get_text(' - ', strip=True)+'\n'
+            content += header.get_text(' - ', strip=True)+' \n'
         for body in article.find_all(['div'],class_=['article__text']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content 
 
 def extractSpiegel(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.header.find_all(['h2']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.header.find_all(['div'],class_=['leading-loose']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['section'],class_=['relative']):
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractFaz(htmlText):
@@ -85,12 +85,12 @@ def extractFaz(htmlText):
     content = ''
     if(soup.article):
         for header in soup.article.find_all(['div'],class_=['atc-HeadlineContainer']):
-            content += header.get_text(' ', strip=True)+'\n'
+            content += header.get_text(' ', strip=True)+' \n'
         for summary in soup.article.find_all(['div'],class_=['atc-Intro']):
-            content += summary.get_text(' ', strip=True)+'\t\n'  
+            content += summary.get_text(' ', strip=True)+' \t\n'  
         for body in soup.article.find_all(['div'],class_=['atc-Text']):
                 for paragraph in body.find_all(['p', 'h3'], class_=['atc-TextParagraph', 'atc-SubHeadline']):
-                    content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n' 
+                    content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n' 
     else:
         content = ''
     return content 
@@ -99,94 +99,94 @@ def extractMorgenpost(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['div'],class_=['article__header__heading']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['div'],class_=['article__header__intro']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['article__body']):
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content       
 
 def extractWelt(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h2'],class_=['c-headline']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['div'],class_=['c-summary']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['c-article-text']):
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractTagesschau(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h1'],class_=['seitenkopf__headline']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for paragraph in soup.article.find_all(['p', 'h2'],class_=['textabsatz', 'meldung__subhead']):
-         content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+         content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractHandelsblatt(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['span'],class_=['vhb-headline--onecolumn']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['span'],class_=['vhb-article--introduction']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['vhb-article-area--read']):
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractBild(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h1']):
-        content += header.get_text(' - ', strip=True)+'\n'
+        content += header.get_text(' - ', strip=True)+' \n'
     for body in soup.article.find_all(['div'],class_=['txt']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['article-body']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'                 
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'                 
     return content      
 
 def extractTagesspiegel(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.header.find_all(['h1'], class_=['ts-title']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.header.find_all(['p'],class_=['ts-intro']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.article.find_all(['div'],class_=['ts-article-body']):
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content  
 
 def extractOrf(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.main.find_all(['h1'], class_=['story-lead-headline']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.main.find_all(['p'],class_=['story-lead-text']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.main.find_all(['div'],class_=['story-story']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content      
 
 def extractNzz(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.find_all(['h1'], class_=['headline__title']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.find_all(['p'],class_=['headline__lead']):
-        content += summary.get_text(' ', strip=True)+'\t\n'  
+        content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.find_all(['div'],class_=['article']):
             for paragraph in body.find_all(['p', 'h2', 'li'], class_=['articlecomponent','enumeration__title','enumeration__item']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content   
 
 def extractDw(htmlText):
@@ -194,13 +194,13 @@ def extractDw(htmlText):
     content = ''
     for body in soup.find_all(['div'],id=['bodyContent']):
         for header in body.find_all(['h1']):
-            content += header.get_text(' ', strip=True)+'\n'
+            content += header.get_text(' ', strip=True)+' \n'
     for body in soup.find_all(['div'],id=['bodyContent']):
         for summary in body.find_all(['p'],class_=['intro']):
-            content += summary.get_text(' ', strip=True)+'\t\n'  
+            content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.find_all(['div'],class_=['longText']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content   
 
 def extractHeise(htmlText):
@@ -209,18 +209,18 @@ def extractHeise(htmlText):
     for side in soup.find_all(['section'], class_=['article-sidebar']):
         side.decompose() 
     for header in soup.article.find_all(['h1'],class_=['article__heading']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for paragraph in soup.article.find_all(['p', 'h3','blockquote']):
-        content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+        content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     return content 
 
 def extractTaz(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h1'],itemprop=['headline']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for paragraph in soup.article.find_all(['p', 'h6']):     
-        content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n'  
+        content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
     content = content.replace("&shy", '').replace(";\xad","").replace("\xad","")
     return content 
 
@@ -228,37 +228,66 @@ def extractWiwo(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h2'],class_=['c-headline']):
-        content += header.get_text(' ', strip=True)+'\n'
+        content += header.get_text(' ', strip=True)+' \n'
     for summary in soup.article.find_all(['p'],class_=['c-leadtext']):
-            content += summary.get_text(' ', strip=True)+'\t\n'  
+            content += summary.get_text(' ', strip=True)+' \t\n'  
     for body in soup.find_all(['div'],class_=['c-richText']):
             for meta in body.find_all(['div'], class_=['c-metadata']):
                 meta.decompose() 
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n' 
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n' 
     return content 
 
 def extractTonline(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.find_all(['h2'],class_=['Tarthl']):
-        content += header.get_text(' - ', strip=True)+'\n'
+        content += header.get_text(' - ', strip=True)+' \n'
     for body in soup.find_all(['div'],itemprop=['articleBody']):
             for meta in body.find_all(['span'], class_=['Tiflle']):
                 meta.decompose() 
             for paragraph in body.find_all(['p', 'h3']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n' 
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n' 
     return content 
 
 def extractPresse(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
     for header in soup.article.find_all(['h1'],class_=['article__title']):
-        content += header.get_text(' - ', strip=True)+'\n'
+        content += header.get_text(' - ', strip=True)+' \n'
     for body in soup.find_all(['div'],class_=['article__body']):
             for paragraph in body.find_all(['p', 'h2']):
-                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+'\t\n' 
+                content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n' 
     return content 
+
+def extractAny(htmlText):
+    soup = BeautifulSoup(htmlText, 'html.parser')
+    content = ''
+    #for side in soup.find_all(['header'], class_=['header']):
+    #    side.decompose()     
+    for side in soup.find_all(['section'], class_=['article-sidebar']):
+        side.decompose() 
+    for side in soup.find_all(['div'], id=['navigation']):
+        side.decompose() 
+    for side in soup.find_all(['div', 'section'], id=['sidebar']):
+        side.decompose()         
+    for side in soup.find_all(['div'], id=['footer']):
+        side.decompose() 
+    for side in soup.find_all(['nav']):
+        side.decompose()         
+    for side in soup.find_all(['footer']):
+        side.decompose() 
+    for side in soup.find_all(['aside']):
+        side.decompose() 
+
+    if(soup.find_all(['main'])):
+        soup = soup.main.extract()
+    if(soup.find_all(['article'])):
+        soup = soup.article.extract()
+
+    for paragraph in soup.find_all(['p','h1','h2','h3','h4','h5','h6','blockquote']):
+        content += paragraph.get_text(' ', strip=True).replace("\n",' ').replace('  ',' ')+' \t\n'  
+    return content     
 
 domains = {'www.zeit.de': extractZeit, 'www.sueddeutsche.de': extractSued, 'www.stern.de':extractStern, 'www.focus.de':extractFocus, 
            'www.n-tv.de':extractNtv, 'www.spiegel.de':extractSpiegel, 'www.faz.net':extractFaz, 'www.morgenpost.de':extractMorgenpost,
@@ -294,10 +323,10 @@ for newsFileHarvest in newsFiles:
                 if(urlArchive):
                     try:
                         print(urlArchive) 
-                        response = requests.get(urlArchive)
-                    except requests.exceptions.TooManyRedirects as e2:
+                        response = requests.get(urlArchive, timeout=120)
+                    except Exception as e2:
                         print(['Fail to get url: ', urlArchive,' exc: ' ,e2])
-                        response = None                
+                        response = None    
                     if(response):
                         if(response.text):
                             encoded = response.text.encode(response.encoding).decode('utf-8')
@@ -305,10 +334,10 @@ for newsFileHarvest in newsFiles:
                 if(urlOrig):
                     try:
                         print(urlOrig) 
-                        response = requests.get(urlOrig)
-                    except requests.exceptions.TooManyRedirects as e2:
+                        response = requests.get(urlOrig, timeout=90)
+                    except Exception as e2:
                         print(['Fail to get url: ', urlOrig,' exc: ' ,e2])
-                        response = None                
+                        response = None   
                     if(response):
                         if(response.text):
                             encoded = response.text.encode(response.encoding).decode('utf-8')
