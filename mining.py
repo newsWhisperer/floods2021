@@ -10,7 +10,6 @@ import json
 
 from bs4 import BeautifulSoup
 
-
 def extractZeit(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
@@ -224,6 +223,7 @@ def extractTaz(htmlText):
     content = content.replace("&shy", '').replace(";\xad","").replace("\xad","")
     return content 
 
+# soup.article
 def extractWiwo(htmlText):
     soup = BeautifulSoup(htmlText, 'html.parser')
     content = ''
@@ -330,7 +330,10 @@ for newsFileHarvest in newsFiles:
                     if(response):
                         if(response.text):
                             encoded = response.text.encode(response.encoding).decode('utf-8')
-                            quoteArchive =  domains[domain](encoded)
+                            try:
+                                quoteArchive = domains[domain](encoded)
+                            except:
+                                quoteArchive = None
                 if(urlOrig):
                     try:
                         print(urlOrig) 
@@ -341,7 +344,10 @@ for newsFileHarvest in newsFiles:
                     if(response):
                         if(response.text):
                             encoded = response.text.encode(response.encoding).decode('utf-8')
-                            quoteOrig =  domains[domain](encoded)
+                            try:
+                                quoteOrig = domains[domain](encoded)
+                            except:
+                                quoteOrig = None
                 if(quoteOrig):
                     di1[index]['quote'] = quoteOrig        
                 if(quoteArchive):

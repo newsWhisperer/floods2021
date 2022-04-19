@@ -59,7 +59,7 @@ if(not os.path.exists(DATA_PATH / 'csv')):
 if(not os.path.exists(DATA_PATH / 'img')):
     os.mkdir(DATA_PATH / 'img')
 
-bayesDF2 = pd.read_csv(DATA_PATH / "csv" / "words_topic_all.csv", delimiter=',',index_col='word')
+bayesDF2 = pd.read_csv(DATA_PATH / "csv" / "words_bayes_topic_all.csv", delimiter=',',index_col='word')
 if(lowercase):
    bayesDF2.index = bayesDF2.index.str.lower()
 bayesDF2 = bayesDF2[~bayesDF2.index.duplicated(keep='first')]
@@ -235,6 +235,7 @@ tf = tf_vectorizer.fit_transform(data_samples)
 print("done in %0.3fs." % (time() - t0))
 print()
 
+'''
 # Fit the NMF model
 print(
     "Fitting the NMF model (Frobenius norm) with tf-idf features, "
@@ -250,7 +251,7 @@ filename = "topics_nmf1_" + setting
 plot_top_words(
     nmf, tfidf_feature_names, n_top_words, "Topics in NMF model (Frobenius norm)", filename  
 )
-
+'''
 
 # Fit the NMF model
 print(
@@ -283,7 +284,7 @@ plot_top_words(
     filename
 )
 
-
+'''
 # Fit the NMF model with init matrices
 print(
     "\n" * 2,
@@ -355,6 +356,7 @@ plot_top_words(
     "Topics in NMF model with custom init (generalized Kullback-Leibler divergence)",
     filename
 )
+'''
 
 print(
     "\n" * 2,

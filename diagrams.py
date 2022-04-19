@@ -242,7 +242,7 @@ custom_lines = [plt.Line2D([],[], ls="", marker='.',
 leg = ax.legend(custom_lines, labelLeg, 
           loc='center left', fontsize=16, bbox_to_anchor=(0.75, .48))
 leg.set_title("Topics", prop = {'size':20})            
-plt.savefig(DATA_PATH / 'img' / 'topics_date.png', dpi=300)
+plt.savefig(DATA_PATH / 'img' / 'dates_topics_article_count.png', dpi=300)
 plt.close('all')
 
 
@@ -272,5 +272,5 @@ leg  = axDomain.legend(wedges2021, floodsTopics['index'],
         fontsize=8,
         bbox_to_anchor=(1, 0, 0.5, 1))
 leg.set_title("Topics", prop = {'size':10})          
-plt.savefig(DATA_PATH / 'img' / 'topics_pie_domains.png', dpi=300)
+plt.savefig(DATA_PATH / 'img' / 'domains_topics_count_pie.png', dpi=300)
 plt.close('all')

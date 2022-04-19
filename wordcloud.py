@@ -15,6 +15,8 @@ import networkx as nx
 
 DATA_PATH = Path.cwd()
 
+reduced = True
+
 floodsDF = files.getNewsDF(state='singular')
 floodsDF = floodsDF[floodsDF['valid']==1]
 floodsDF = floodsDF[floodsDF['language']=='de']
@@ -23,7 +25,8 @@ if(floodsDF.empty):
 
 
 locationsDF = pd.read_csv(DATA_PATH / 'csv' / 'geonames.csv', delimiter=',',index_col='phrase')
-## locationsDF = locationsDF[locationsDF['count']>8]
+if(reduced):
+    locationsDF = locationsDF[locationsDF['count']>8]
 locationsDF = locationsDF[((locationsDF['country']=='Deutschland') | (locationsDF['geotype']=='A'))]
 locationsDF = locationsDF[locationsDF['geonames'].notnull()]
 locationsDF = locationsDF[locationsDF['geotype']!='S']
@@ -33,13 +36,15 @@ locationsDF = locationsDF[~locationsDF.index.duplicated(keep='first')]
 locationsDict = locationsDF.to_dict('index')
 
 organizationsDF = pd.read_csv(DATA_PATH / 'csv' / 'entities_orgs.csv', delimiter=',',index_col='phrase')
-## organizationsDF = organizationsDF[organizationsDF['count']>5]
+if(reduced):
+    organizationsDF = organizationsDF[organizationsDF['count']>5]
 organizationsDF.index = organizationsDF.index.str.lower()
 organizationsDF = organizationsDF[~organizationsDF.index.duplicated(keep='first')]
 organizationsDict = organizationsDF.to_dict('index')
 
 personsDF = pd.read_csv(DATA_PATH / 'csv' / 'entities_persons.csv', delimiter=',',index_col='phrase')
-## personsDF = personsDF[personsDF['count']>3]
+if(reduced):
+    personsDF = personsDF[personsDF['count']>3]
 personsDF.index = personsDF.index.str.lower()
 personsDF.index = personsDF.index.str.strip()
 personsDF = personsDF[~personsDF.index.duplicated(keep='first')]
@@ -107,7 +112,8 @@ for index, column in floodsDF.iterrows():
             floodNodes[lemma]['counter'] += 1
             
 floodNodesDF = pd.DataFrame.from_dict(floodNodes, orient='index', columns=['lemma', 'orig', 'gramma', 'counter'])  
-## floodNodesDF = floodNodesDF[floodNodesDF['counter']>175]
+if(reduced):
+    floodNodesDF = floodNodesDF[floodNodesDF['counter']>175]
 floodNodesDF = floodNodesDF.sort_values('counter', ascending=False)
 remainingNodes = floodNodesDF['lemma'].tolist()
 print(floodNodesDF)
@@ -139,8 +145,9 @@ for index, column in floodsDF.iterrows():
             prevLemma = lemma 
 
 
-floodEdgesDF = pd.DataFrame.from_dict(floodEdges, orient='index', columns=['prev', 'curr', 'counter'])  
-## floodEdgesDF = floodEdgesDF[floodEdgesDF['counter']>12]
+floodEdgesDF = pd.DataFrame.from_dict(floodEdges, orient='index', columns=['prev', 'curr', 'counter']) 
+if(reduced): 
+    floodEdgesDF = floodEdgesDF[floodEdgesDF['counter']>12]
 
 floodEdgesDF = floodEdgesDF.sort_values('counter', ascending=False)
 

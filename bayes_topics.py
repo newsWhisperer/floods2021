@@ -11,8 +11,6 @@ from textblob_de import TextBlobDE
 import re
 import math
 import random
-#from sklearn.decomposition import Truncatedpca
-from sklearn.decomposition import PCA
 
 import matplotlib.pyplot as plt
 
@@ -152,7 +150,7 @@ for word in topicWordsAbs:
                     relData[topic] = math.log(relValue)
     topicWordsRel[word] = relData 
 topicWordsRelDF = pd.DataFrame.from_dict(topicWordsRel, orient='index', columns=emptyCol.keys()) 
-topicWordsRelDF.to_csv(DATA_PATH / 'csv' / "words_topic_all.csv", index=True) 
+topicWordsRelDF.to_csv(DATA_PATH / 'csv' / "words_bayes_topic_all.csv", index=True) 
 
 
 colorsTopics = {
@@ -176,23 +174,6 @@ colorsTopics = {
 }
 
 
-topicWordsRelDF = pd.read_csv(DATA_PATH / "csv" / "words_topic_all.csv", delimiter=',',index_col='word')
-topicWordsRelDF = topicWordsRelDF[topicWordsRelDF['Unnamed: 0'] != 'summaryOfAllWords']
-print(topicWordsRelDF)
-
-numberComponents = 10
-dfn = topicWordsRelDF
-dfn = dfn.drop(columns=['summary', 'Unnamed: 0'])
-dfn['const0'] = 1.0
-
-pca = PCA(n_components=numberComponents)
-pca.fit(dfn)
-apca = pca.fit_transform(dfn)
-dfpca = pd.DataFrame(apca)
-
-dfpca['word'] = topicWordsRelDF.index
-dfpca['summary'] = topicWordsRelDF['summary'].values
-dfpca.to_csv(DATA_PATH / "csv" /"words_topic_pca.csv", index=False)
 
 def combine_hex_values(d):
   d_items = sorted(d.items())
@@ -248,6 +229,6 @@ leg = plt.legend(custom_lines, labelLeg,
           loc='center left', fontsize=10, bbox_to_anchor=(0.9, .80))
 leg.set_title("Topics", prop = {'size':12}) 
 
-plt.savefig(DATA_PATH / 'img' / 'words_topic_pca.png', dpi=300)  
+plt.savefig(DATA_PATH / 'img' / 'words_bayes_topic_pca.png', dpi=300)  
 
 

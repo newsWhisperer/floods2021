@@ -2,9 +2,9 @@
     "description": "No description provided.", 
     "license": "other-open", 
     "title": "newsWhisperer/floods2021: Init News-Harvester and Classifier", 
-    "version": "v1.0.0", 
+    "version": "v2022.4.19", 
     "upload_type": "software", 
-    "publication_date": "2022-04-01", 
+    "publication_date": "2022-04-19", 
     "creators": [
         {
             "orcid": "0000-0001-8571-2821", 
@@ -16,7 +16,7 @@
     "related_identifiers": [
         {
             "scheme": "url", 
-            "identifier": "https://github.com/newsWhisperer/floods2021/tree/v1.0.0", 
+            "identifier": "https://github.com/newsWhisperer/floods2021/tree/v2022.4.19", 
             "relation": "isSupplementTo"
         }, 
         {

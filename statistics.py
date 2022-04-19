@@ -9,6 +9,9 @@ import os.path
 
 DATA_PATH = Path.cwd()
 
+if(not os.path.exists(DATA_PATH / 'csv')):
+    os.mkdir(DATA_PATH / 'csv')
+
 floodsDF = files.getNewsDF(state='singular')
 floodsDF = floodsDF[floodsDF['valid']==1]
 
@@ -235,10 +238,7 @@ Am 13. Juni dieses Jahres war die große Wasserkatastrophe an der Ahr, verursach
 """
 
 #get news_1804_1910.csv from freidok:  doi.org/10.6094/UNIFR/222040
-url = "https://freidok.uni-freiburg.de/fedora/objects/freidok:222040/datastreams/FILE1/content"
-content=requests.get(url).content
-stream = io.StringIO(content.decode('utf-8'))
-historyDf = pd.read_csv(stream, delimiter=',',index_col='index')
+historyDf = files.getDFfromFiledok("https://freidok.uni-freiburg.de/fedora/objects/freidok:222040/datastreams/FILE1/content", "news_1804_1910.csv", delimiter=',')
 
 for index, column in historyDf.iterrows():
     print(column['published'][0:4])

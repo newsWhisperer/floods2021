@@ -17,6 +17,10 @@ import io
 from urllib.request import urlopen, Request
 from PIL import Image
 
+import folium
+import webbrowser
+from folium.plugins import HeatMap
+
 from pathlib import Path
 import os.path
 
@@ -43,6 +47,9 @@ locationsDF = pd.read_csv(DATA_PATH / 'csv' / 'geonames.csv', delimiter=',')
 locationsDF = locationsDF[locationsDF['country']=='Deutschland']
 locationsDF = locationsDF.sort_values(by=['count'], ascending=False)
 #print(locationsDF)
+
+rivers_10m = cfeature.NaturalEarthFeature('physical', 'rivers_lake_centerlines', '10m')
+rivers_europe_10m = cfeature.NaturalEarthFeature('physical', 'rivers_europe', '10m')
 
 
 def image_spoof(self, tile): 
@@ -88,17 +95,31 @@ for index, column in locationsDF.iterrows():
             lat1.append(x)
             long1.append(y)
             ax1.plot(x, y, 
-                    markersize=40,marker='o',linestyle='', markeredgecolor=None,
-                    color='#0000ff', alpha=0.02,transform=ccrs.PlateCarree())                     
+                    markersize=35,marker='o',linestyle='', markeredgecolor=None,
+                    color='#0033bb', alpha=0.003,transform=ccrs.PlateCarree())                     
             ax1.plot(x, y, 
-                    markersize=20,marker='o',linestyle='', markeredgecolor=None,
-                    color='#0000ff', alpha=0.04,transform=ccrs.PlateCarree())  
+                    markersize=15,marker='o',linestyle='', markeredgecolor=None,
+                    color='#0022aa', alpha=0.005,transform=ccrs.PlateCarree())  
 #contour-plot
 sns.kdeplot(x=lat1, y=long1, fill=False,  levels=10, thresh=.0005, color='grey', transform=ccrs.PlateCarree()  )  
+ax1.add_feature(rivers_10m, facecolor='None', edgecolor='cyan', linewidth=1.5, zorder=2)
+ax1.add_feature(rivers_europe_10m, facecolor='None', edgecolor='cyan', linewidth=1.5, zorder=2)
 
 for label in labels:
-    ax1.text(label['lon'],label['lat'],label['name'], color='#aa0000', fontsize=12, ha='center', va='center',transform=ccrs.PlateCarree())
+    ax1.text(label['lon'],label['lat'],label['name'], color='#200000', fontsize=14, ha='center', va='center',transform=ccrs.PlateCarree())
 
 if(not os.path.exists(DATA_PATH / 'img')):
     os.mkdir(DATA_PATH / 'img')
 plt.savefig(DATA_PATH / 'img' / 'heatmap.png', dpi=300)
+
+
+
+heatdata = []
+for index, column in locationsDF.iterrows():
+    if((50<column['latitude']<52) and (6<column['longitude']<8) and not ('Nordrhein-Westfalen' == column['phrase'])):
+        print([column['phrase'],column['count']])
+        heatdata.append([column['latitude'],column['longitude'],column['count']])
+
+map_osm = folium.Map(location=[51,7],zoom_start=8,tiles='StamenTerrain',control_scale=True)
+HeatMap(heatdata).add_to(map_osm)
+map_osm.save(str(DATA_PATH / "img" / "heatmap.html"))

@@ -20,8 +20,8 @@ import geocoder
 
 DATA_PATH = Path.cwd()
 
-if(os.path.isfile(DATA_PATH / 'csv'/ 'geonames_locations.csv')):
-    locationsDF = pd.read_csv(DATA_PATH / 'csv'/ 'geonames_locations.csv', delimiter=',',index_col='index')
+if(os.path.isfile(DATA_PATH / 'csv'/ 'geonames.csv')):
+    locationsDF = pd.read_csv(DATA_PATH / 'csv'/ 'geonames.csv', delimiter=',',index_col='index')
     locationsDF = locationsDF.sort_values(by=['count'], ascending=False)
 else:    
     locationsDF = pd.read_csv(DATA_PATH / 'csv'/ 'entities_locations.csv', delimiter=',')
@@ -30,6 +30,7 @@ else:
     locationsDF['longitude'] = 0.0
     locationsDF['geotype'] = ''
     locationsDF['country'] = ''
+    locationsDF.to_csv(DATA_PATH / 'csv'/ 'geonames.csv', index_label='index')
 
 geonamesKey = 'GEONAMES_KEY'
 geonamesKey = os.getenv('GEONAMES_KEY')
@@ -37,7 +38,7 @@ if(geonamesKey == '1a2b3c4d5'):
     print('Please set geonames.org key in file: secrets.py');
     exit()
 
-imax = 9000
+imax = 7000
 for index, column in locationsDF.iterrows():
     if(imax>0):
         lang = str(column.language)

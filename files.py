@@ -24,6 +24,7 @@ def getNewsDFbyList(files):
             newsDF = df
         else:
             newsDF = pd.concat([newsDF, df])
+    newsDF = newsDF.sort_values(by=['published'], ascending=True)        
     return newsDF  
 
 def getNewsDF(state='singular'):
@@ -38,10 +39,12 @@ def getNewsDF(state='singular'):
 def getDFfromFiledok(url, fileName, delimiter=','):
     if(os.path.isfile(DATA_PATH / 'csv' / fileName)):
         dataframe = pd.read_csv(DATA_PATH / 'csv' / fileName, delimiter=delimiter)
+        dataframe = dataframe.sort_values(by=['published'], ascending=True)
         return dataframe
     else:
         stream=requests.get(url).content         
         dataframe=pd.read_csv(io.StringIO(stream.decode('utf-8')), delimiter=delimiter)
+        dataframe = dataframe.sort_values(by=['published'], ascending=True)
         dataframe.to_csv(DATA_PATH / 'csv' / fileName, index=True) 
         return dataframe
 
