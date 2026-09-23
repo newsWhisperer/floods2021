@@ -1,4 +1,5 @@
 import files
+import categories
 import dates
 import pandas as pd
 
@@ -128,7 +129,7 @@ for index, column in floodsDF.iterrows():
 indexPartiesDF = pd.DataFrame.from_dict(indexParties, orient='index', columns=partiesList)
 indexPartiesDF.to_csv(DATA_PATH / 'csv' / "parties_date.csv", index=True)      
 
-
+'''
 topicDict = { \
  'Flood Hazard':['Überflutung','Flut','Hochwasser','Katastrophe','Überschwemmung','Pegel','schwoll','Ufer treten','angewachsen','katastrophe',
                  'Wassermassen'], 
@@ -162,6 +163,8 @@ topicDict = { \
  'Risk': ['HQ100','1804','Risiko','Risiken'],
  'Wine': ['Winzer', 'Wein'],
 }
+'''
+topicDict = categories.getTopicDict()
 
 #topics per date
 topicList = topicDict.keys()

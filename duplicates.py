@@ -25,6 +25,7 @@ for newsFileHarvest in newsFiles:
     df1['similarity'] = 0.0
     df1 = df1.sort_values(by=['published'], ascending=True)
 
+    #print(newsFileHarvest)
     for index, column in df1.iterrows():
         quote = str(column['domain']) + ' ' + str(column['title']) + ' ' + str(column['description']) + ' ' + str(column['content'])
         if(len(str(column['quote'])) > 20):
@@ -32,8 +33,12 @@ for newsFileHarvest in newsFiles:
         md5 = hashlib.md5(quote.encode('utf-8')).hexdigest()
         df1.loc[index,'md5'] = md5
 
-        pubDate = parser.parse(column['published'])
-        day = pubDate.strftime('%Y-%m-%d')
+        day = '1970-01-01'
+        if(len(str(column['published']))>5):
+          pubDate = parser.parse(column['published'])
+          day = pubDate.strftime('%Y-%m-%d')
+        
+            
         groupTxt = str(column['domain']) +  ' ' + day
         group = hashlib.md5(groupTxt.encode('utf-8')).hexdigest()  
         df1.loc[index,'group'] = group

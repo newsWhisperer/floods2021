@@ -1,3 +1,4 @@
+import categories
 import pandas as pd
 import numpy as np
 import math
@@ -34,7 +35,7 @@ domainWordsRelDF = domainWordsRelDF.drop(columns=["Unnamed: 0", "summary"])
 print(domainWordsRelDF)
 domainWordsRelDI = domainWordsRelDF.to_dict('index')
 
-
+'''
 colorsTopics = {
  #'Vulnerability': 'r',
  #'Wiederaufbau': 'y',
@@ -65,8 +66,9 @@ colorsTopics = {
 
  'Flood Hazard': 'royalblue', # 'mediumblue',
 }
+'''
 
-
+colorsTopics = categories.getTopicColors()
 
 
 emptyDomains = {"other":0}

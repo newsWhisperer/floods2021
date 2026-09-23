@@ -1,3 +1,4 @@
+import categories
 import pandas as pd
 import numpy as np
 import math
@@ -31,6 +32,7 @@ colorDomains = {
 
 colorsParties = {'Linke':'fuchsia', 'AfD':'aqua', 'FDP':'gold', 'Grüne':'green', 'SPD':'red', 'CDU/CSU':'dimgray'}
 
+'''
 colorsTopics = {
  'Wine': 'purple',
  'Troublemakers': 'fuchsia',
@@ -50,6 +52,9 @@ colorsTopics = {
  'Victims': 'red',
  'Flood Hazard': 'royalblue', 
 }
+'''
+
+colorsTopics = categories.getTopicColors()
 
 topicsPi = ['Flood Hazard', 'Weather', 'Victims', 'Damage', 'Causes', 'Health', 'Warnings', 'Infrastructure', 'Solidarity', 
             'Rescue', 'Insurance', 'Pollution', 'Wine', 'Politics']

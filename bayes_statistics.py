@@ -109,7 +109,7 @@ for index, column in floodsDF.iterrows():
     if(i % 50 == 0):
         print(i)
     timetravelDate = '1970-01-01'
-    weekC = 'w0'
+    weekC = '2000w0'
     pubDate = None
     try:
         pubDate = parser.parse(column.published)
@@ -122,7 +122,7 @@ for index, column in floodsDF.iterrows():
         print('date parse error 2')   
     if(pubDate):
         timetravelDate = pubDate.strftime('%Y-%m-%d')
-        weekC = pubDate.strftime("w%V")
+        weekC = pubDate.strftime("%Yw%V")
 
     if(not timetravelDate in indexTopicsWords):
         indexTopicsWords[timetravelDate] = {}

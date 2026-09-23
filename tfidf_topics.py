@@ -1,4 +1,5 @@
 import files
+import categories
 import pandas as pd
 import numpy as np
 from numpy.random import default_rng
@@ -66,6 +67,7 @@ bayesDF2 = bayesDF2[~bayesDF2.index.duplicated(keep='first')]
 bayesDF2 = bayesDF2[bayesDF2.index.notnull()]
 bayesDict =bayesDF2.to_dict('index')
 
+'''
 colorsTopics = {
  'Wine': 'purple',
  'Troublemakers': 'fuchsia',
@@ -85,6 +87,9 @@ colorsTopics = {
  'Victims': 'red',
  'Flood Hazard': 'royalblue', 
 }
+'''
+
+colorsTopics = categories.getTopicColors()
 
 # aggregate text by date
 groupedDF = floodsDF.groupby('day').text.apply(lambda x: x.sum()).reset_index()

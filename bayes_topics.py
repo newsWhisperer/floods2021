@@ -1,4 +1,5 @@
 import files
+import categories
 import pandas as pd
 
 from pathlib import Path
@@ -44,6 +45,7 @@ def generateTokensWithPosition(quote):
                 yield [(lastWord+' '+lemma), positionSentence+positionWord]
             lastWord = lemma 
 
+'''
 topicDict = { \
  'Flood Hazard':['Überflutung','Flut','Hochwasser','Katastrophe','Überschwemmung','Pegel','schwoll','Ufer treten','angewachsen','katastrophe',
                  'Wassermassen'], 
@@ -75,6 +77,8 @@ topicDict = { \
  'Risk': ['HQ100','1804','Risiko','Risiken'],
  'Wine': ['Winzer', 'Wein'],
 }
+'''
+topicDict = categories.getTopicDict()
 
 emptyTopics = {'summary':0, 'other':0}
 for topic in topicDict:
@@ -152,83 +156,5 @@ for word in topicWordsAbs:
 topicWordsRelDF = pd.DataFrame.from_dict(topicWordsRel, orient='index', columns=emptyCol.keys()) 
 topicWordsRelDF.to_csv(DATA_PATH / 'csv' / "words_bayes_topic_all.csv", index=True) 
 
-
-colorsTopics = {
- 'Wine': '800080',
- 'Troublemakers': 'FF00FF',
- 'Insurance': 'FFE4B5',
- 'Risk': '008000',
- 'Responsability': 'FA8072',
- 'Pollution': '00FF00',
- 'Health': 'FFD700',
- 'Causes': '008B8B',
- 'Warnings': 'FF8C00',
- 'Solidarity': 'ADFF2F',
- 'Infrastructure': 'A9A9A9',
- 'Rescue': '6B8E23',
- 'Politics': '9370DB',
- 'Damage':'B22222', 
- 'Weather': '87CEEB', 
- 'Victims': 'FF0000',
- 'Flood Hazard': '4169E1', 
-}
-
-
-
-def combine_hex_values(d):
-  d_items = sorted(d.items())
-  tot_weight = sum(d.values())
-  red = int(sum([int(k[:2], 16)*v for k, v in d_items])/tot_weight)
-  green = int(sum([int(k[2:4], 16)*v for k, v in d_items])/tot_weight)
-  blue = int(sum([int(k[4:6], 16)*v for k, v in d_items])/tot_weight)
-  zpad = lambda x: x if len(x)==2 else '0' + x
-  return zpad(hex(red)[2:]) + zpad(hex(green)[2:]) + zpad(hex(blue)[2:])
-
-
-
-plt.figure( figsize=(20,15) )
-plt.xlim([-3, 6])
-plt.ylim([-3, 3])
-for index, column in dfpca.iterrows():
-  if(not " " in str(column['word'])): 
-    maxColor = '000000'
-    nxtColor = '555555'
-    maxprobabiliyty = -15  #log!
-    nxtprobabiliyty = -15  
-
-    for topic in colorsTopics:
-        if(str(column['word']) in topicWordsRelDF[topic]):
-            if(topicWordsRelDF[topic][str(column['word'])]> maxprobabiliyty):
-                maxprobabiliyty = topicWordsRelDF[topic][str(column['word'])]
-                maxColor = colorsTopics[topic]
-    for topic in colorsTopics:
-        if(str(column['word']) in topicWordsRelDF[topic]):
-            if(maxprobabiliyty > topicWordsRelDF[topic][str(column['word'])] > nxtprobabiliyty):
-                nxtprobabiliyty = topicWordsRelDF[topic][str(column['word'])]
-                nxtColor = colorsTopics[topic] 
-    if((maxprobabiliyty < -12) & (nxtprobabiliyty < -12)):
-        maxColor = '555555'
-        nxtColor = '555555'                    
- 
-    maxColor = '#'+combine_hex_values({maxColor: math.exp(maxprobabiliyty) , nxtColor: math.exp(nxtprobabiliyty)})                           
-    x = random.uniform(-0.1, 0.1)+column[0]
-    y = random.uniform(-0.1, 0.1)+column[1]
-    s = (2+math.sqrt(1+math.sqrt(column['summary'])))
-    plt.text(x, y, column['word'], color='#ffffff', fontsize=s, ha='center', va='center', zorder=s-1E-7, fontweight='bold')
-    plt.text(x, y, column['word'], color=maxColor, fontsize=s, ha='center', va='center', zorder=s)
-
-
-colorLeg = list(colorsTopics.values())#.reverse()
-colorLeg.reverse()
-labelLeg = list(colorsTopics.keys())#.reverse()
-labelLeg.reverse()
-custom_lines = [plt.Line2D([],[], ls="", marker='.', 
-                mec='k', mfc='#'+c, mew=.1, ms=20) for c in colorLeg]
-             
-leg = plt.legend(custom_lines, labelLeg, 
-          loc='center left', fontsize=10, bbox_to_anchor=(0.9, .80))
-leg.set_title("Topics", prop = {'size':12}) 
-
-plt.savefig(DATA_PATH / 'img' / 'words_bayes_topic_pca.png', dpi=300)  
 
 
